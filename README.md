@@ -22,8 +22,6 @@ Nous aurons besoin des bibliothèques requises pour exécuter ce code - installa
 ## Préparation des données
 
 - Dans notre cas, les données ne sont pas disponibles au format CSV (il y a que les labels). Nous avons 10 dossiers dans le répértoire de données, chaque dossier correspond à une classe de documents et contient les fichiers textes de la classe correspondante. Nous allons donc d'abord parcourir la structure de répertoires et créer un ensemble de données puis préparer un DataFrame.
-
-![Repartition des donnees.png](attachment:Repartition des donnees.png)
    
 - Ensuite, nous allons séparer le jeu de données en ensembles d'apprentissage et de validation afin de pouvoir former et tester les classifieurs.
 - Nous allons coder notre colonne de labels afin qu'elle puisse être utilisée dans des modèles d'apprentissage automatique.
