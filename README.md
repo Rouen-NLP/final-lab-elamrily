@@ -1,7 +1,7 @@
 
 # Classification des documents du procès des groupes américains du tabac
 
-### Contexte
+## Contexte
 
 Le gouvernement américain a attaqué en justice cinq grands groupes américains du tabac pour avoir amassé d'importants bénéfices en mentant sur les dangers de la cigarette. Le cigarettiers  se sont entendus dès 1953, pour "mener ensemble une vaste campagne de relations publiques afin de contrer les preuves de plus en plus manifestes d'un lien entre la consommation de tabac et des maladies graves".
 Dans ce procès 14 millions de documents ont été collectés et numérisés. Afin de faciliter l'exploitation de ces documents par les avocats, nous allons mettre en place une classification automatique des types de documents.
@@ -11,7 +11,7 @@ Un échantillon aléatoire des documents a été collecté et des opérateurs on
 - le texte contenu dans les documents obtenu par OCR (reconnaissance automatique) : Tobacco3482-OCR.tar.gz  (dans ce git)
 - les classes des documents définies par des opérateurs : Tobacco3482.csv (dans ce git)
 
-### Bibliothèques nécessaires
+## Bibliothèques nécessaires
 
 Nous aurons besoin des bibliothèques requises pour exécuter ce code - installation à leurs liens officiels individuels.
 - pandas
@@ -19,22 +19,22 @@ Nous aurons besoin des bibliothèques requises pour exécuter ce code - installa
 - sklearn
 - keras
 
-### Préparation des données
+## Préparation des données
 
 - Dans notre cas, les données ne sont pas disponibles au format CSV (il y a que les labels). Nous avons 10 dossiers dans le répértoire de données, chaque dossier correspond à une classe de documents et contient les fichiers textes de la classe correspondante. Nous allons donc d'abord parcourir la structure de répertoires et créer un ensemble de données puis préparer un DataFrame.
 
-![image.png](attachment:image.png)
+![Repartition des donnees.png](attachment:Repartition des donnees.png)
    
 - Ensuite, nous allons séparer le jeu de données en ensembles d'apprentissage et de validation afin de pouvoir former et tester les classifieurs.
 - Nous allons coder notre colonne de labels afin qu'elle puisse être utilisée dans des modèles d'apprentissage automatique.
     
-    Nombre de donnees:  3482
-    X_train:  (2819,)
-    X_test:  (349,)
-    X_val:  (314,)
+    - Nombre de donnees:  3482
+    - X_train:  (2819,)
+    - X_test:  (349,)
+    - X_val:  (314,)
     
 
-### Feature Engineering
+## Feature Engineering
 
 Dans cette étape, les données de texte brutes seront transformées en vecteurs d'entités et de nouvelles entités seront créées à l'aide du jeu de données existant. Nous allons implémenter les différentes idées suivantes afin d’obtenir des caractéristiques pertinentes de notre jeu de données.
 
@@ -47,7 +47,7 @@ Dans cette étape, les données de texte brutes seront transformées en vecteurs
 
 
 
-### Model Building 
+## Model Building 
 
 La dernière étape du cadre de classification de texte consiste à former un classificateur à l'aide des fonctionnalités créées à l'étape précédente. Il existe de nombreux choix de modèles d'apprentissage automatique pouvant être utilisés pour former un modèle final. Nous allons implémenter différents classificateurs suivants:
 
@@ -56,15 +56,16 @@ La dernière étape du cadre de classification de texte consiste à former un cl
 - Bagging Models
 - Convolutional Neural Network (CNN)
 
-##### Naive Bayes Classifier
+#### Naive Bayes Classifier
 
 Naive Bayes est une technique de classification basée sur le théorème de Bayes avec une hypothèse d’indépendance parmi les prédicteurs. Un classificateur Naive Bayes suppose que la présence d'une caractéristique particulière dans une classe n'est pas liée à la présence d'une autre caractéristique.
 
-- Avec Count Vectors representation    
-    Score de validation :  0.73
+- Avec Count Vectors representation  
+
+    - Score de validation :  0.73
     
-     - Prediction des classes et test sur les donnees de test: 
-    
+    - Prediction des classes et test sur les donnees de test: 
+     
                  precision    recall  f1-score   support
     
               0       0.70      0.70      0.70        23
@@ -77,24 +78,27 @@ Naive Bayes est une technique de classification basée sur le théorème de Baye
               7       0.60      0.46      0.52        26
               8       1.00      1.00      1.00        15
               9       0.67      0.64      0.65        25
-    
-    avg / total       0.76      0.76      0.76       349
-    
-    matrice de confusion : 
-     [[16  0  0  0  2  0  4  1  0  0]
-     [ 0 59  0  1  2  1  0  0  0  0]
-     [ 2  0 43  1  0  0  1  0  0  1]
-     [ 0  1  5 44  5  4  1  4  0  1]
-     [ 0  0  2  6 40  0  1  2  0  0]
-     [ 2  0  0  0  0 15  1  0  0  0]
-     [ 2  0  3  0  5  0  5  0  0  0]
-     [ 0  0  1  2  4  1  0 12  0  6]
-     [ 0  0  0  0  0  0  0  0 15  0]
-     [ 1  0  4  0  3  0  0  1  0 16]]
+              avg / total       0.76      0.76      0.76       349
+              
+              matrice de confusion : 
+              [[16  0  0  0  2  0  4  1  0  0]
+              [ 0 59  0  1  2  1  0  0  0  0]
+              [ 2  0 43  1  0  0  1  0  0  1]
+              [ 0  1  5 44  5  4  1  4  0  1]
+              [ 0  0  2  6 40  0  1  2  0  0]
+              [ 2  0  0  0  0 15  1  0  0  0]
+              [ 2  0  3  0  5  0  5  0  0  0]
+              [ 0  0  1  2  4  1  0 12  0  6]
+              [ 0  0  0  0  0  0  0  0 15  0]
+              [ 1  0  4  0  3  0  0  1  0 16]]
     
 
 - Avec TF-IDF Vectors representation
-    Score de validation :  0.72
+    
+    - Score de validation :  0.72
+    
+    - Prediction des classes et test sur les donnees de test: 
+    
                  precision    recall  f1-score   support
     
               0       0.84      0.70      0.76        23
@@ -107,30 +111,30 @@ Naive Bayes est une technique de classification basée sur le théorème de Baye
               7       0.58      0.27      0.37        26
               8       1.00      1.00      1.00        15
               9       0.65      0.68      0.67        25
-    
-    avg / total       0.78      0.76      0.74       349
-    
-    matrice de confusion : 
-     [[16  0  3  0  4  0  0  0  0  0]
-     [ 0 60  0  1  1  1  0  0  0  0]
-     [ 1  0 46  1  0  0  0  0  0  0]
-     [ 0  1  4 48  6  0  0  3  0  3]
-     [ 0  0  3  6 41  0  0  1  0  0]
-     [ 2  0  1  0  0 15  0  0  0  0]
-     [ 0  0  8  1  5  0  1  0  0  0]
-     [ 0  1  1  3  5  3  0  7  0  6]
-     [ 0  0  0  0  0  0  0  0 15  0]
-     [ 0  0  5  0  2  0  0  1  0 17]]
+              avg / total       0.78      0.76      0.74       349
+              
+              matrice de confusion : 
+              [[16  0  3  0  4  0  0  0  0  0]
+              [ 0 60  0  1  1  1  0  0  0  0]
+              [ 1  0 46  1  0  0  0  0  0  0]
+              [ 0  1  4 48  6  0  0  3  0  3]
+              [ 0  0  3  6 41  0  0  1  0  0]
+              [ 2  0  1  0  0 15  0  0  0  0]
+              [ 0  0  8  1  5  0  1  0  0  0]
+              [ 0  1  1  3  5  3  0  7  0  6]
+              [ 0  0  0  0  0  0  0  0 15  0]
+              [ 0  0  5  0  2  0  0  1  0 17]]
     
 
-##### Linear Classifier
+#### Linear Classifier
 
 La régression logistique mesure la relation entre la variable dépendante catégorielle et une ou plusieurs variables indépendantes en estimant les probabilités à l'aide d'une fonction logistique / sigmoïde.
 
 - Avec Count Vectors representation
-    Score de validation :  0.79
     
-     - Prediction des classes et test sur les donnees de test: 
+    - Score de validation :  0.79
+
+    - Prediction des classes et test sur les donnees de test: 
     
                  precision    recall  f1-score   support
     
@@ -144,24 +148,27 @@ La régression logistique mesure la relation entre la variable dépendante caté
               7       0.75      0.46      0.57        26
               8       1.00      1.00      1.00        15
               9       0.67      0.64      0.65        25
-    
-    avg / total       0.82      0.82      0.81       349
-    
-    matrice de confusion : 
-     [[15  1  1  0  1  0  5  0  0  0]
-     [ 0 62  0  1  0  0  0  0  0  0]
-     [ 1  0 44  1  0  0  2  0  0  0]
-     [ 1  1  1 51  7  1  0  1  0  2]
-     [ 1  0  0  6 43  0  1  0  0  0]
-     [ 1  1  0  0  0 15  0  0  0  1]
-     [ 0  0  2  0  1  0 12  0  0  0]
-     [ 0  1  2  2  3  1  0 12  0  5]
-     [ 0  0  0  0  0  0  0  0 15  0]
-     [ 0  0  3  0  2  0  1  3  0 16]]
+              avg / total       0.82      0.82      0.81       349
+              
+              matrice de confusion : 
+              [[15  1  1  0  1  0  5  0  0  0]
+              [ 0 62  0  1  0  0  0  0  0  0]
+              [ 1  0 44  1  0  0  2  0  0  0]
+              [ 1  1  1 51  7  1  0  1  0  2]
+              [ 1  0  0  6 43  0  1  0  0  0]
+              [ 1  1  0  0  0 15  0  0  0  1]
+              [ 0  0  2  0  1  0 12  0  0  0]
+              [ 0  1  2  2  3  1  0 12  0  5]
+              [ 0  0  0  0  0  0  0  0 15  0]
+              [ 0  0  3  0  2  0  1  3  0 16]]
     
 
 - Avec TF-IDF Vectors representation
-    Score de validation :  0.77
+
+    - Score de validation :  0.77
+    
+    - Prediction des classes et test sur les donnees de test:
+    
                  precision    recall  f1-score   support
     
               0       0.76      0.57      0.65        23
@@ -174,27 +181,30 @@ La régression logistique mesure la relation entre la variable dépendante caté
               7       0.64      0.35      0.45        26
               8       1.00      1.00      1.00        15
               9       0.61      0.68      0.64        25
-    
-    avg / total       0.79      0.78      0.78       349
-    
-    matrice de confusion : 
-     [[13  0  2  0  3  1  4  0  0  0]
-     [ 0 60  0  1  1  1  0  0  0  0]
-     [ 2  0 42  0  0  0  3  0  0  1]
-     [ 1  1  4 48  5  1  0  3  0  2]
-     [ 0  1  1  5 43  0  0  1  0  0]
-     [ 1  0  1  0  0 16  0  0  0  0]
-     [ 0  0  3  0  2  0 10  0  0  0]
-     [ 0  1  1  1  4  2  0  9  0  8]
-     [ 0  0  0  0  0  0  0  0 15  0]
-     [ 0  0  4  0  2  0  1  1  0 17]]
+              avg / total       0.79      0.78      0.78       349
+              
+              matrice de confusion : 
+              [[13  0  2  0  3  1  4  0  0  0]
+              [ 0 60  0  1  1  1  0  0  0  0]
+              [ 2  0 42  0  0  0  3  0  0  1]
+              [ 1  1  4 48  5  1  0  3  0  2]
+              [ 0  1  1  5 43  0  0  1  0  0]
+              [ 1  0  1  0  0 16  0  0  0  0]
+              [ 0  0  3  0  2  0 10  0  0  0]
+              [ 0  1  1  1  4  2  0  9  0  8]
+              [ 0  0  0  0  0  0  0  0 15  0]
+              [ 0  0  4  0  2  0  1  1  0 17]]
     
 
 ##### Bagging Models
 
 Les modèles Random Forest sont un type de modèle d'ensemble, en particulier les modèles du bagging. Ils font partie de la famille de modèles basés sur des arbres.
 - Avec Count Vectors representation
-    Score de validation :  0.74
+
+    - Score de validation :  0.74
+    
+    - Prediction des classes et test sur les donnees de test:
+    
                  precision    recall  f1-score   support
     
               0       0.70      0.70      0.70        23
@@ -207,25 +217,23 @@ Les modèles Random Forest sont un type de modèle d'ensemble, en particulier le
               7       0.44      0.27      0.33        26
               8       1.00      1.00      1.00        15
               9       0.65      0.60      0.63        25
-    
-    avg / total       0.76      0.76      0.76       349
-    
-    matrice de confusion : 
-     [[16  0  2  1  0  0  3  1  0  0]
-     [ 0 61  0  1  0  0  0  1  0  0]
-     [ 1  2 40  0  1  0  1  2  0  1]
-     [ 0  1  4 51  5  0  1  2  0  1]
-     [ 1  2  2  6 39  0  0  1  0  0]
-     [ 2  0  2  0  0 14  0  0  0  0]
-     [ 2  1  3  1  0  0  8  0  0  0]
-     [ 0  0  5  3  2  3  0  7  0  6]
-     [ 0  0  0  0  0  0  0  0 15  0]
-     [ 1  0  4  1  1  0  1  2  0 15]]
+              avg / total       0.76      0.76      0.76       349
+              matrice de confusion : 
+              [[16  0  2  1  0  0  3  1  0  0]
+              [ 0 61  0  1  0  0  0  1  0  0]
+              [ 1  2 40  0  1  0  1  2  0  1]
+              [ 0  1  4 51  5  0  1  2  0  1]
+              [ 1  2  2  6 39  0  0  1  0  0]
+              [ 2  0  2  0  0 14  0  0  0  0]
+              [ 2  1  3  1  0  0  8  0  0  0]
+              [ 0  0  5  3  2  3  0  7  0  6]
+              [ 0  0  0  0  0  0  0  0 15  0]
+              [ 1  0  4  1  1  0  1  2  0 15]]
      
 
 Selon les résultats obtenus on remarque que l'extraction des caractéristique à l'aide du count vectors est mieux que le tf-idf.
 
-##### Reseau de neuronnes convoltionnel (CNN)
+#### Reseau de neuronnes convoltionnel (CNN)
 
 Dans les réseaux neuronaux convolutifs, les convolutions sur la couche d'entrée sont utilisées pour calculer la sortie. Il en résulte des connexions locales, où chaque région de l’entrée est connectée à un neurone dans la sortie. Chaque couche applique des filtres différents et combine leurs résultats.
 
@@ -279,14 +287,12 @@ Model utilisé :
     avg / total       0.77      0.76      0.76       349
     
     
-### Amélioration 
+## Amélioration 
 
 Pour obtenir une bonne précision, certaines améliorations peuvent être apportées au cadre général. Par exemple, voici quelques methodes pour améliorer les performances des modèles de classification de texte.
 
 1. Nettoyage de texte: le nettoyage de texte peut aider à réduire le bruit présent dans les données de texte sous forme de mots vides, de signes de ponctuation, de variations de suffixe, etc.
 
-2. Entraver des entités texte / PNL avec des vecteurs d'entités textuels.
+2. Optimisation du paramétrage Hyperparamter dans la modélisation: Le réglage des paramètres est une étape importante. Plusieurs paramètres tels que la longueur de l'arbre, les feuilles, les paramètres réseau, etc. peuvent être ajustés pour obtenir le meilleur modèle.
 
-3. Optimisation du paramétrage Hyperparamter dans la modélisation: Le réglage des paramètres est une étape importante. Plusieurs paramètres tels que la longueur de l'arbre, les feuilles, les paramètres réseau, etc. peuvent être ajustés pour obtenir le meilleur modèle.
-
-4. Modèles d'ensemble: empiler différents modèles et mélanger leurs sorties peut aider à améliorer les résultats.
+3. Modèles d'ensemble: empiler différents modèles et mélanger leurs sorties peut aider à améliorer les résultats.
